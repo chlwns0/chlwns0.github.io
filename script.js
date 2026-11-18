@@ -25,8 +25,17 @@
       year: "루미너스아이즈 · AI Video",
       title: "AI 광고 영상",
       desc: "Google Flow와 Higgsfield로 장면 소스를 생성하고, 프리미어 프로에서 컷 구성·자막·사운드를 더해 광고 영상으로 완성했습니다.",
-      spec: { 역할: "영상 생성 · 편집", 도구: "Google Flow, Higgsfield, Premiere Pro", 결과물: "AI 광고 영상" },
+      spec: { 역할: "영상 생성 · 편집", 도구: "Google Flow, Higgsfield, Premiere Pro", 결과물: "9:16 AI 쇼츠 광고 영상 6편" },
       url: "#",
+      // 영상 추가: 유튜브 쇼츠 링크의 shorts/ 뒤 ID를 한 줄씩 추가 (brand가 같으면 한 묶음으로 표시)
+      videos: [
+        { brand: "마가보감", title: "HACCP 인증 시설", id: "-KndzVjc4jw" },
+        { brand: "마가보감", title: "다 마셔 봤다면 '이것'", id: "sNtv2lAzOxA" },
+        { brand: "마가보감", title: "하루 '1포'의 정체", id: "cLk7Fof6WaU" },
+        { brand: "마가보감", title: "'이것' 하루 한 포", id: "GRyBLQErisQ" },
+        { brand: "마가보감", title: "3D 캐릭터 꿀팁", id: "fZUipyDCV40" },
+        { brand: "마가보감", title: "아버님의 환절기 루틴", id: "Z4GqdMyToZU" },
+      ],
     },
     landing: {
       year: "루미너스아이즈 · Landing Page",
@@ -168,6 +177,7 @@
       $("modalLink").hidden = !p.url || p.url === "#"; // 작업물 링크가 생기면 자동으로 버튼 표시
       renderGallery(p.gallery);
       renderAdGrid(p.adGrid);
+      renderVideos(p.videos);
       modal.showModal();
       root.style.overflow = "hidden";
     });
@@ -230,9 +240,46 @@
     }));
   }
 
+  // ----- 쇼츠 영상 플레이어 (유튜브 임베드, 버튼으로 영상 전환) -----
+  function renderVideos(videos) {
+    const wrap = $("modalVideos"), tabs = $("modalVideoTabs"), frame = $("modalVideoFrame");
+    wrap.hidden = !videos || !videos.length;
+    if (wrap.hidden) { tabs.replaceChildren(); frame.replaceChildren(); return; }
+    const buttons = videos.map((v, i) => {
+      const b = Object.assign(document.createElement("button"), { type: "button", className: "lp-tab", textContent: v.title });
+      b.setAttribute("role", "tab");
+      b.addEventListener("click", () => play(i));
+      return b;
+    });
+    const play = (i) => {
+      buttons.forEach((b, j) => b.setAttribute("aria-selected", String(i === j)));
+      const iframe = Object.assign(document.createElement("iframe"), {
+        src: `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videos[i].id)}?rel=0&playsinline=1`,
+        title: `${videos[i].brand} ${videos[i].title} 영상`,
+        allow: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen",
+        loading: "lazy",
+      });
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.replaceChildren(iframe);
+    };
+    const groups = new Map();
+    videos.forEach((v, i) => { if (!groups.has(v.brand)) groups.set(v.brand, []); groups.get(v.brand).push(buttons[i]); });
+    tabs.replaceChildren(...[...groups].map(([brand, btns]) => {
+      const g = Object.assign(document.createElement("div"), { className: "lp-group" });
+      if (brand) g.append(Object.assign(document.createElement("span"), { className: "lp-brand", textContent: brand }));
+      g.append(...btns);
+      return g;
+    }));
+    play(0);
+  }
+
   $("modalClose").addEventListener("click", () => modal.close());
   modal.addEventListener("click", (e) => { if (e.target === modal) modal.close(); }); // 배경 클릭 시 닫기
-  modal.addEventListener("close", () => { root.style.overflow = ""; });
+  modal.addEventListener("close", () => {
+    root.style.overflow = "";
+    $("modalVideoFrame").replaceChildren(); // 팝업을 닫으면 영상 재생도 멈춤
+  });
 
   // ----- Copy email -----
   const copyBtn = $("copyMail");

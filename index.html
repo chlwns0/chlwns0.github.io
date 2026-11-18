@@ -170,12 +170,32 @@
 
         <article class="card reveal" data-cat="video" data-cursor="View">
           <div class="card-media" style="--c1:#2e5bff;--c2:#9fb4ff">
-            <div class="mock mock-phone"><div class="mock-notch"></div><div class="mock-list"><span></span><span></span><span></span><span></span></div></div>
+            <div class="mock lp-roll sv-roll" role="img" aria-label="마가보감 AI 쇼츠 광고 영상 썸네일">
+              <!-- 유튜브 쇼츠 썸네일 롤링 (영상 추가 시 script.js의 videos와 여기 img를 함께 추가) -->
+              <div class="lp-track">
+                <div class="lp-set">
+                  <img src="https://i.ytimg.com/vi/-KndzVjc4jw/oar2.jpg" alt="" decoding="async" width="405" height="720" />
+                  <img src="https://i.ytimg.com/vi/sNtv2lAzOxA/oar2.jpg" alt="" decoding="async" width="405" height="720" />
+                  <img src="https://i.ytimg.com/vi/cLk7Fof6WaU/oar2.jpg" alt="" decoding="async" width="405" height="720" />
+                  <img src="https://i.ytimg.com/vi/GRyBLQErisQ/oar2.jpg" alt="" decoding="async" width="405" height="720" />
+                  <img src="https://i.ytimg.com/vi/fZUipyDCV40/oar2.jpg" alt="" decoding="async" width="405" height="720" />
+                  <img src="https://i.ytimg.com/vi/Z4GqdMyToZU/hqdefault.jpg" alt="" decoding="async" width="405" height="720" />
+                </div>
+                <div class="lp-set" aria-hidden="true">
+                  <img src="https://i.ytimg.com/vi/-KndzVjc4jw/oar2.jpg" alt="" decoding="async" width="405" height="720" />
+                  <img src="https://i.ytimg.com/vi/sNtv2lAzOxA/oar2.jpg" alt="" decoding="async" width="405" height="720" />
+                  <img src="https://i.ytimg.com/vi/cLk7Fof6WaU/oar2.jpg" alt="" decoding="async" width="405" height="720" />
+                  <img src="https://i.ytimg.com/vi/GRyBLQErisQ/oar2.jpg" alt="" decoding="async" width="405" height="720" />
+                  <img src="https://i.ytimg.com/vi/fZUipyDCV40/oar2.jpg" alt="" decoding="async" width="405" height="720" />
+                  <img src="https://i.ytimg.com/vi/Z4GqdMyToZU/hqdefault.jpg" alt="" decoding="async" width="405" height="720" />
+                </div>
+              </div>
+            </div>
           </div>
           <div class="card-info">
             <div>
               <h3><button class="card-link" data-project="shorts" aria-haspopup="dialog">AI 광고 영상</button></h3>
-              <p>AI 생성 영상 소스 + 프리미어 프로 편집</p>
+              <p>AI 생성 영상 소스 + 프리미어 프로 편집 · 쇼츠 6편</p>
             </div>
             <span class="card-meta">Google Flow · Higgsfield · Premiere Pro</span>
           </div>
@@ -363,6 +383,10 @@
       <p class="modal-desc" id="modalDesc"></p>
       <dl class="modal-spec" id="modalSpec"></dl>
       <div class="ad-board" id="modalAds" hidden></div>
+      <div class="lp-viewer" id="modalVideos" hidden>
+        <div class="lp-tabs" id="modalVideoTabs" role="tablist" aria-label="영상 선택"></div>
+        <div class="sv-frame" id="modalVideoFrame"></div>
+      </div>
       <div class="lp-viewer" id="modalGallery" hidden>
         <div class="lp-tabs" id="modalGalleryTabs" role="tablist" aria-label="랜딩페이지 선택"></div>
         <div class="lp-frame" id="modalGalleryFrame" tabindex="0" aria-label="랜딩페이지 전체 화면 (스크롤해서 보기)"></div>
