@@ -9,8 +9,17 @@
       year: "루미너스아이즈 · Google Demand Gen",
       title: "구글 디맨드젠 광고소재",
       desc: "구글 디맨드젠 캠페인에 쓰이는 이미지 광고소재를 제작했습니다. ChatGPT와 Gemini로 카피와 콘셉트 방향을 넓히고, 포토샵과 일러스트레이터로 매체 규격별 소재를 완성했습니다.",
-      spec: { 역할: "광고소재 디자인", 도구: "Photoshop, Illustrator, ChatGPT, Gemini", 결과물: "규격별 이미지 광고소재 세트" },
+      spec: { 역할: "광고소재 디자인", 도구: "Photoshop, Illustrator, ChatGPT, Gemini", 결과물: "1200×628 · 600×600 규격 광고소재 47종" },
       url: "#",
+      // 광고소재 추가: works/ads/web/에 이미지(+ -thumb)를 넣고 이름을 추가 (wide = 1200×628, square = 600×600)
+      adGrid: [
+        { brand: "마가보감", wide: ["maga-01", "maga-02", "maga-03", "maga-04", "maga-05", "maga-06", "maga-07", "maga-08", "maga-09"],
+          square: ["maga-10", "maga-11", "maga-12", "maga-13", "maga-14", "maga-15", "maga-16", "maga-17", "maga-18"] },
+        { brand: "아이클타임", wide: [],
+          square: ["icletime-01", "icletime-02", "icletime-03", "icletime-04", "icletime-05", "icletime-06", "icletime-07", "icletime-08", "icletime-09", "icletime-10", "icletime-11", "icletime-12", "icletime-13", "icletime-14", "icletime-15"] },
+        { brand: "리피어라", wide: ["repiera-01", "repiera-02", "repiera-03", "repiera-04", "repiera-05", "repiera-06", "repiera-07"],
+          square: ["repiera-08", "repiera-09", "repiera-10", "repiera-11", "repiera-12", "repiera-13", "repiera-14"] },
+      ],
     },
     shorts: {
       year: "루미너스아이즈 · AI Video",
@@ -158,6 +167,7 @@
       $("modalLink").href = p.url;
       $("modalLink").hidden = !p.url || p.url === "#"; // 작업물 링크가 생기면 자동으로 버튼 표시
       renderGallery(p.gallery);
+      renderAdGrid(p.adGrid);
       modal.showModal();
       root.style.overflow = "hidden";
     });
@@ -195,6 +205,29 @@
       return g;
     }));
     show(0);
+  }
+
+  // ----- 광고소재 모아보기 (브랜드별 그리드, 클릭하면 원본 크기로 열기) -----
+  function renderAdGrid(groups) {
+    const wrap = $("modalAds");
+    wrap.hidden = !groups || !groups.length;
+    if (wrap.hidden) { wrap.replaceChildren(); return; }
+    const tile = (brand, name, shape) => {
+      const a = Object.assign(document.createElement("a"), { href: `works/ads/web/${name}.jpg`, target: "_blank", rel: "noopener", className: `ad-tile ad-tile--${shape}` });
+      a.setAttribute("aria-label", `${brand} 광고소재 크게 보기 (새 탭)`);
+      a.append(Object.assign(document.createElement("img"), { src: `works/ads/web/${name}-thumb.jpg`, alt: "", loading: "lazy", decoding: "async" }));
+      return a;
+    };
+    wrap.replaceChildren(...groups.map((g) => {
+      const sec = Object.assign(document.createElement("section"), { className: "ad-group" });
+      const count = g.wide.length + g.square.length;
+      const h = Object.assign(document.createElement("h3"), { className: "ad-brand", textContent: g.brand });
+      h.append(Object.assign(document.createElement("span"), { textContent: ` ${count}종` }));
+      const grid = Object.assign(document.createElement("div"), { className: "ad-grid" });
+      grid.append(...g.wide.map((n) => tile(g.brand, n, "wide")), ...g.square.map((n) => tile(g.brand, n, "square")));
+      sec.append(h, grid);
+      return sec;
+    }));
   }
 
   $("modalClose").addEventListener("click", () => modal.close());

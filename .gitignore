@@ -4,3 +4,6 @@ session-export-*/
 # 원본 랜딩 HTML(추적 코드·신청폼 포함)은 공개하지 않음 — 캡처 이미지만 올림
 works/landing/*
 !works/landing/shots/
+# 광고소재 원본(PNG)은 공개하지 않고 웹용(web/)만 올림
+works/ads/*
+!works/ads/web/
