@@ -23,7 +23,7 @@
       year: "루미너스아이즈 · Landing Page",
       title: "상품 랜딩페이지",
       desc: "상품 판매를 위한 랜딩페이지를 디자인하고 제작했습니다. 광고소재와 같은 톤으로 이어지도록 구성해, 광고를 보고 들어온 고객이 자연스럽게 구매로 이어지게 했습니다.",
-      spec: { 역할: "디자인 · 제작", 도구: "Photoshop, Illustrator, VS Code", 결과물: "건강식품·뷰티 랜딩페이지 9종 (모바일)" },
+      spec: { 역할: "디자인 · 제작", 도구: "Photoshop, Illustrator, VS Code", 결과물: "건강식품·뷰티 랜딩페이지 12종 (모바일)" },
       url: "#",
       // 랜딩 추가: works/landing/shots/에 캡처를 넣고 한 줄씩 추가 (brand가 같으면 한 묶음으로 표시)
       gallery: [
@@ -36,6 +36,9 @@
         { brand: "리피어라", title: "A", src: "works/landing/shots/repiera-01.jpg" },
         { brand: "리피어라", title: "B", src: "works/landing/shots/repiera-02.jpg" },
         { brand: "고혼진", title: "A", src: "works/landing/shots/gohonjin-01.jpg" },
+        { brand: "아이클타임", title: "A", src: "works/landing/shots/icletime-01.jpg" },
+        { brand: "아이클타임", title: "B", src: "works/landing/shots/icletime-02.jpg" },
+        { brand: "해조전복프라임", title: "A", src: "works/landing/shots/fucoidan-01.jpg" },
       ],
     },
   };
