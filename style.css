@@ -294,17 +294,29 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
 .card:hover .card-media > .mock,
 .card:has(.card-link:focus-visible) .card-media > .mock { transform: scale(1.06) rotate(-1.5deg); }
 /* 랜딩페이지 카드: 휴대폰 화면 두 장 */
-.lp-phones {
-  position: absolute; inset: 9% 0 9% 0; width: auto;
-  display: flex; gap: 4%; align-items: center; justify-content: center;
+/* 랜딩페이지 카드: 브랜드별 대표 화면이 옆으로 롤링 */
+.mock.lp-roll {
+  position: absolute; inset: 0; width: auto; /* .mock 기본 폭(72%) 대신 카드 전체 폭 사용 */
+  display: flex; align-items: center; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-.lp-phones img {
+.card:hover .card-media > .lp-roll,
+.card:has(.card-link:focus-visible) .card-media > .lp-roll { transform: none; } /* 카드 공통 확대·회전 효과 대신 롤링만 */
+.lp-track {
+  display: flex; height: 80%; width: max-content;
+  animation: lp-roll 42s linear infinite;
+}
+.lp-set { display: flex; height: 100%; gap: clamp(14px, 2vw, 28px); padding-right: clamp(14px, 2vw, 28px); }
+.lp-set img {
   height: 100%; width: auto; aspect-ratio: 595 / 900; object-fit: cover; object-position: top;
   border-radius: 18px; border: 4px solid #141414;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
 }
-.lp-phones img:nth-child(2) { transform: translateY(6%); }
-.modal-media .card-media:has(.lp-phones) { aspect-ratio: 16 / 9; }
+.lp-set img:nth-child(even) { transform: translateY(5%); }
+.card:hover .lp-track, .lp-roll:focus-within .lp-track { animation-play-state: paused; } /* 마우스를 올리면 잠시 멈춤 */
+@keyframes lp-roll { to { transform: translateX(-50%); } }
+.modal-media .card-media:has(.lp-roll) { aspect-ratio: 16 / 9; }
 
 .card-info {
   display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
@@ -584,4 +596,6 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal, .hero-title .word { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
+  .lp-roll { overflow-x: auto; } /* 자동 롤링 대신 손으로 넘겨 보기 */
+  .lp-set[aria-hidden="true"] { display: none; }
 }
