@@ -10,7 +10,6 @@
       title: "구글 디맨드젠 광고소재",
       desc: "구글 디맨드젠 캠페인에 쓰이는 이미지 광고소재를 제작했습니다. ChatGPT와 Gemini로 카피와 콘셉트 방향을 넓히고, 포토샵과 일러스트레이터로 매체 규격별 소재를 완성했습니다.",
       spec: { 역할: "광고소재 디자인", 도구: "Photoshop, Illustrator, ChatGPT, Gemini", 결과물: "1200×628 · 600×600 규격 광고소재 47종" },
-      url: "#",
       // 광고소재 추가: works/ads/web/에 이미지(+ -thumb)를 넣고 이름을 추가 (wide = 1200×628, square = 600×600)
       adGrid: [
         { brand: "마가보감", wide: ["maga-01", "maga-02", "maga-03", "maga-04", "maga-05", "maga-06", "maga-07", "maga-08", "maga-09"],
@@ -26,7 +25,6 @@
       title: "AI 광고 영상",
       desc: "Google Flow와 Higgsfield로 장면 소스를 생성하고, 프리미어 프로에서 컷 구성·자막·사운드를 더해 광고 영상으로 완성했습니다.",
       spec: { 역할: "영상 생성 · 편집", 도구: "Google Flow, Higgsfield, Premiere Pro", 결과물: "9:16 AI 쇼츠 광고 영상 6편" },
-      url: "#",
       // 영상 추가: 유튜브 쇼츠 링크의 shorts/ 뒤 ID를 한 줄씩 추가 (brand가 같으면 한 묶음으로 표시)
       videos: [
         { brand: "마가보감", title: "A", id: "-KndzVjc4jw" },
@@ -42,7 +40,6 @@
       title: "상품 랜딩페이지",
       desc: "상품 판매를 위한 랜딩페이지를 디자인하고 제작했습니다. 광고소재와 같은 톤으로 이어지도록 구성해, 광고를 보고 들어온 고객이 자연스럽게 구매로 이어지게 했습니다.",
       spec: { 역할: "디자인 · 제작", 도구: "Photoshop, Illustrator, VS Code", 결과물: "건강식품·뷰티 랜딩페이지 13종 (모바일)" },
-      url: "#",
       // 랜딩 추가: works/landing/shots/에 캡처를 넣고 한 줄씩 추가 (brand가 같으면 한 묶음으로 표시)
       gallery: [
         { brand: "마가보감", title: "A", src: "works/landing/shots/maga-01.jpg" },
@@ -173,8 +170,6 @@
         const dd = document.createElement("dd"); dd.textContent = v;
         return [dt, dd];
       }));
-      $("modalLink").href = p.url;
-      $("modalLink").hidden = !p.url || p.url === "#"; // 작업물 링크가 생기면 자동으로 버튼 표시
       renderGallery(p.gallery);
       renderAdGrid(p.adGrid);
       renderVideos(p.videos);

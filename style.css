@@ -558,7 +558,7 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
 }
 .modal-media { margin-bottom: 24px; }
 .modal-media .card-media { aspect-ratio: 16 / 9; }
-.modal-year, .modal-title, .modal-desc, .modal-spec, .btn-solid { margin-inline: 12px; }
+.modal-year, .modal-title, .modal-desc, .modal-spec { margin-inline: 12px; }
 .modal-year { font: 500 13px var(--font-display); color: var(--accent); }
 .modal-title { font: 700 clamp(32px, 5vw, 48px)/1.1 var(--font-display); letter-spacing: -0.04em; margin-block: 6px 12px; }
 .modal-desc { color: var(--muted); line-height: 1.85; max-width: 36em; }
@@ -587,12 +587,6 @@ em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
   border: 8px solid #141414; border-radius: 32px; background: #fff;
 }
 .lp-frame img { display: block; width: 100%; height: auto; }
-.btn-solid {
-  display: inline-block;
-  font: 500 15px var(--font-display);
-  padding: 12px 22px; border-radius: 999px;
-  background: var(--accent); color: var(--accent-ink);
-}
 
 .footer {
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
