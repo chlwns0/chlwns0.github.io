@@ -29,12 +29,12 @@
       url: "#",
       // 영상 추가: 유튜브 쇼츠 링크의 shorts/ 뒤 ID를 한 줄씩 추가 (brand가 같으면 한 묶음으로 표시)
       videos: [
-        { brand: "마가보감", title: "HACCP 인증 시설", id: "-KndzVjc4jw" },
-        { brand: "마가보감", title: "다 마셔 봤다면 '이것'", id: "sNtv2lAzOxA" },
-        { brand: "마가보감", title: "하루 '1포'의 정체", id: "cLk7Fof6WaU" },
-        { brand: "마가보감", title: "'이것' 하루 한 포", id: "GRyBLQErisQ" },
-        { brand: "마가보감", title: "3D 캐릭터 꿀팁", id: "fZUipyDCV40" },
-        { brand: "마가보감", title: "아버님의 환절기 루틴", id: "Z4GqdMyToZU" },
+        { brand: "마가보감", title: "A", id: "-KndzVjc4jw" },
+        { brand: "마가보감", title: "B", id: "sNtv2lAzOxA" },
+        { brand: "마가보감", title: "C", id: "cLk7Fof6WaU" },
+        { brand: "마가보감", title: "D", id: "GRyBLQErisQ" },
+        { brand: "마가보감", title: "E", id: "fZUipyDCV40" },
+        { brand: "마가보감", title: "F", id: "Z4GqdMyToZU" },
       ],
     },
     landing: {
@@ -248,6 +248,7 @@
     const buttons = videos.map((v, i) => {
       const b = Object.assign(document.createElement("button"), { type: "button", className: "lp-tab", textContent: v.title });
       b.setAttribute("role", "tab");
+      b.setAttribute("aria-label", `${v.brand} ${v.title}`);
       b.addEventListener("click", () => play(i));
       return b;
     });
