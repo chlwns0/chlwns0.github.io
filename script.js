@@ -23,12 +23,19 @@
       year: "루미너스아이즈 · Landing Page",
       title: "상품 랜딩페이지",
       desc: "상품 판매를 위한 랜딩페이지를 디자인하고 제작했습니다. 광고소재와 같은 톤으로 이어지도록 구성해, 광고를 보고 들어온 고객이 자연스럽게 구매로 이어지게 했습니다.",
-      spec: { 역할: "디자인 · 제작", 도구: "Photoshop, Illustrator, Claude Code", 결과물: "상품 랜딩페이지 2종 (모바일)" },
+      spec: { 역할: "디자인 · 제작", 도구: "Photoshop, Illustrator, VS Code", 결과물: "건강식품·뷰티 랜딩페이지 9종 (모바일)" },
       url: "#",
-      // 랜딩 추가: works/landing/shots/에 캡처를 넣고 한 줄씩 추가
+      // 랜딩 추가: works/landing/shots/에 캡처를 넣고 한 줄씩 추가 (brand가 같으면 한 묶음으로 표시)
       gallery: [
-        { title: "마가보감 A", src: "works/landing/shots/maga-01.jpg" },
-        { title: "마가보감 B", src: "works/landing/shots/maga-02.jpg" },
+        { brand: "마가보감", title: "A", src: "works/landing/shots/maga-01.jpg" },
+        { brand: "마가보감", title: "B", src: "works/landing/shots/maga-02.jpg" },
+        { brand: "활보원", title: "A", src: "works/landing/shots/hwalbowon-01.jpg" },
+        { brand: "활보원", title: "B", src: "works/landing/shots/hwalbowon-02.jpg" },
+        { brand: "관절보궁", title: "A", src: "works/landing/shots/bogung-01.jpg" },
+        { brand: "관절보궁", title: "B", src: "works/landing/shots/bogung-02.jpg" },
+        { brand: "리피어라", title: "A", src: "works/landing/shots/repiera-01.jpg" },
+        { brand: "리피어라", title: "B", src: "works/landing/shots/repiera-02.jpg" },
+        { brand: "고혼진", title: "A", src: "works/landing/shots/gohonjin-01.jpg" },
       ],
     },
   };
@@ -156,17 +163,32 @@
     const wrap = $("modalGallery"), tabs = $("modalGalleryTabs"), frame = $("modalGalleryFrame");
     wrap.hidden = !items || !items.length;
     if (wrap.hidden) { tabs.replaceChildren(); frame.replaceChildren(); return; }
+    const label = (it) => [it.brand, it.title].filter(Boolean).join(" ");
+    const buttons = items.map((it, i) => {
+      const b = Object.assign(document.createElement("button"), { type: "button", className: "lp-tab", textContent: it.title });
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-label", label(it));
+      b.addEventListener("click", () => show(i));
+      return b;
+    });
     const show = (i) => {
-      [...tabs.children].forEach((b, j) => b.setAttribute("aria-selected", String(i === j)));
-      const img = Object.assign(document.createElement("img"), { src: items[i].src, alt: `${items[i].title} 랜딩페이지 전체 화면`, decoding: "async" });
+      buttons.forEach((b, j) => b.setAttribute("aria-selected", String(i === j)));
+      const img = Object.assign(document.createElement("img"), { src: items[i].src, alt: `${label(items[i])} 랜딩페이지 전체 화면`, decoding: "async" });
       frame.replaceChildren(img);
       frame.scrollTop = 0;
     };
-    tabs.replaceChildren(...items.map((it, i) => {
-      const b = Object.assign(document.createElement("button"), { type: "button", className: "lp-tab", textContent: it.title });
-      b.setAttribute("role", "tab");
-      b.addEventListener("click", () => show(i));
-      return b;
+    // 같은 브랜드끼리 한 줄로 묶기: [브랜드명] A B …
+    const groups = new Map();
+    items.forEach((it, i) => {
+      const key = it.brand || "";
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(buttons[i]);
+    });
+    tabs.replaceChildren(...[...groups].map(([brand, btns]) => {
+      const g = Object.assign(document.createElement("div"), { className: "lp-group" });
+      if (brand) g.append(Object.assign(document.createElement("span"), { className: "lp-brand", textContent: brand }));
+      g.append(...btns);
+      return g;
     }));
     show(0);
   }
