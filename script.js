@@ -23,8 +23,13 @@
       year: "루미너스아이즈 · Landing Page",
       title: "상품 랜딩페이지",
       desc: "상품 판매를 위한 랜딩페이지를 디자인하고 제작했습니다. 광고소재와 같은 톤으로 이어지도록 구성해, 광고를 보고 들어온 고객이 자연스럽게 구매로 이어지게 했습니다.",
-      spec: { 역할: "디자인 · 제작", 도구: "Photoshop, Illustrator, Claude Code", 결과물: "상품 랜딩페이지" },
+      spec: { 역할: "디자인 · 제작", 도구: "Photoshop, Illustrator, Claude Code", 결과물: "상품 랜딩페이지 2종 (모바일)" },
       url: "#",
+      // 랜딩 추가: works/landing/shots/에 캡처를 넣고 한 줄씩 추가
+      gallery: [
+        { title: "마가보감 A", src: "works/landing/shots/maga-01.jpg" },
+        { title: "마가보감 B", src: "works/landing/shots/maga-02.jpg" },
+      ],
     },
   };
 
@@ -141,10 +146,31 @@
       }));
       $("modalLink").href = p.url;
       $("modalLink").hidden = !p.url || p.url === "#"; // 작업물 링크가 생기면 자동으로 버튼 표시
+      renderGallery(p.gallery);
       modal.showModal();
       root.style.overflow = "hidden";
     });
   });
+  // ----- 랜딩페이지 캡처 뷰어 (탭으로 전환, 프레임 안에서 스크롤) -----
+  function renderGallery(items) {
+    const wrap = $("modalGallery"), tabs = $("modalGalleryTabs"), frame = $("modalGalleryFrame");
+    wrap.hidden = !items || !items.length;
+    if (wrap.hidden) { tabs.replaceChildren(); frame.replaceChildren(); return; }
+    const show = (i) => {
+      [...tabs.children].forEach((b, j) => b.setAttribute("aria-selected", String(i === j)));
+      const img = Object.assign(document.createElement("img"), { src: items[i].src, alt: `${items[i].title} 랜딩페이지 전체 화면`, decoding: "async" });
+      frame.replaceChildren(img);
+      frame.scrollTop = 0;
+    };
+    tabs.replaceChildren(...items.map((it, i) => {
+      const b = Object.assign(document.createElement("button"), { type: "button", className: "lp-tab", textContent: it.title });
+      b.setAttribute("role", "tab");
+      b.addEventListener("click", () => show(i));
+      return b;
+    }));
+    show(0);
+  }
+
   $("modalClose").addEventListener("click", () => modal.close());
   modal.addEventListener("click", (e) => { if (e.target === modal) modal.close(); }); // 배경 클릭 시 닫기
   modal.addEventListener("close", () => { root.style.overflow = ""; });
