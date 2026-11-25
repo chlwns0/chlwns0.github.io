@@ -12,9 +12,9 @@
       points: [
         "작은 지면에서도 읽히도록 큰 헤드카피 한 줄과 혜택(3+2 구매 등)을 CTA 바로 위에 배치",
         "브랜드별 톤 분리 — 마가보감은 레드·블랙의 프리미엄 톤, 아이클타임은 밝은 키즈 톤, 리피어라는 핑크 계열 여성 톤",
-        "ChatGPT·Gemini로 카피 방향과 콘셉트 시안을 넓힌 뒤, 포토샵·일러스트레이터로 규격별 최종 소재 완성",
+        "ChatGPT·Gemini로 카피 방향과 콘셉트 시안을 원하는 만큼 뽑아 넓힌 뒤, 포토샵·일러스트레이터로 규격별 최종 소재 완성",
       ],
-      spec: { 역할: "광고소재 디자인", 도구: "Photoshop, Illustrator, ChatGPT, Gemini", 결과물: "1200×628 · 600×600 규격 광고소재 47종" },
+      spec: { 역할: "광고소재 디자인", 도구: "Photoshop, Illustrator, ChatGPT, Gemini", 결과물: "1200×628 · 600×600 규격 광고소재 47종", "제작 속도": "AI로 시안을 필요한 만큼 빠르게 뽑아 변형·확장" },
       // 광고소재 추가: works/ads/web/에 이미지(+ -thumb)를 넣고 이름을 추가 (wide = 1200×628, square = 600×600)
       adGrid: [
         { brand: "마가보감", wide: ["maga-01", "maga-02", "maga-03", "maga-04", "maga-05", "maga-06", "maga-07", "maga-08", "maga-09"],
@@ -34,7 +34,7 @@
         "제조 시설, 원료, 3D 캐릭터, 시니어 모델 등 편마다 다른 연출로 소구 포인트를 실험",
         "장면마다 제품 패키지를 노출하고 하단 CTA 자막으로 마무리해 브랜드 인지와 행동 유도",
       ],
-      spec: { 역할: "영상 생성 · 편집", 도구: "Google Flow, Higgsfield, Premiere Pro", 결과물: "9:16 AI 쇼츠 광고 영상 6편" },
+      spec: { 역할: "영상 생성 · 편집", 도구: "Google Flow, Higgsfield, Premiere Pro", 결과물: "9:16 AI 쇼츠 광고 영상 6편", "제작 기간": "편당 2~3일" },
       // 영상 추가: 유튜브 쇼츠 링크의 shorts/ 뒤 ID를 한 줄씩 추가 (brand가 같으면 한 묶음으로 표시)
       videos: [
         { brand: "마가보감", title: "A", id: "-KndzVjc4jw" },
@@ -54,7 +54,7 @@
         "신청폼을 페이지 중간과 끝에 반복 배치해 스크롤 이탈 지점마다 전환 기회 확보",
         "광고소재와 같은 카피·컬러를 이어 써서 광고 → 랜딩으로 넘어올 때 어색함이 없도록 구성",
       ],
-      spec: { 역할: "디자인 · 제작", 도구: "Photoshop, Illustrator, VS Code", 결과물: "건강식품·뷰티 랜딩페이지 13종 (모바일)" },
+      spec: { 역할: "디자인 · 제작", 도구: "Photoshop, Illustrator, VS Code", 결과물: "건강식품·뷰티 랜딩페이지 13종 (모바일)", "제작 기간": "페이지당 2~3일" },
       // 랜딩 추가: works/landing/shots/에 캡처를 넣고 한 줄씩 추가 (brand가 같으면 한 묶음으로 표시)
       gallery: [
         { brand: "마가보감", title: "A", src: "works/landing/shots/maga-01.jpg" },
@@ -304,6 +304,13 @@
   modal.addEventListener("close", () => {
     root.style.overflow = "";
     $("modalVideoFrame").replaceChildren(); // 팝업을 닫으면 영상 재생도 멈춤
+  });
+
+  // ----- 이력서 버튼: resume.pdf가 올라가 있을 때만 보이기 -----
+  document.querySelectorAll(".resume-link").forEach((a) => {
+    fetch(a.getAttribute("href"), { method: "HEAD", cache: "no-store" })
+      .then((r) => { if (r.ok) a.hidden = false; })
+      .catch(() => {});
   });
 
   // ----- Copy email -----
