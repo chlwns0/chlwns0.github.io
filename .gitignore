@@ -7,3 +7,6 @@ works/landing/*
 # 광고소재 원본(PNG)은 공개하지 않고 웹용(web/)만 올림
 works/ads/*
 !works/ads/web/
+# PDF는 사이트 이력서 버튼용 resume.pdf 하나만 올림
+*.pdf
+!resume.pdf
