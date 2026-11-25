@@ -8,7 +8,12 @@
     ads: {
       year: "루미너스아이즈 · Google Demand Gen",
       title: "구글 디맨드젠 광고소재",
-      desc: "구글 디맨드젠 캠페인에 쓰이는 이미지 광고소재를 제작했습니다. ChatGPT와 Gemini로 카피와 콘셉트 방향을 넓히고, 포토샵과 일러스트레이터로 매체 규격별 소재를 완성했습니다.",
+      desc: "유튜브·Discover·Gmail 지면에 노출되는 구글 디맨드젠 캠페인용 이미지 광고소재입니다. 브랜드마다 타깃과 톤을 다르게 잡고, 같은 메시지를 가로형(1200×628)과 정사각형(600×600) 두 규격으로 함께 제작했습니다.",
+      points: [
+        "작은 지면에서도 읽히도록 큰 헤드카피 한 줄과 혜택(3+2 구매 등)을 CTA 바로 위에 배치",
+        "브랜드별 톤 분리 — 마가보감은 레드·블랙의 프리미엄 톤, 아이클타임은 밝은 키즈 톤, 리피어라는 핑크 계열 여성 톤",
+        "ChatGPT·Gemini로 카피 방향과 콘셉트 시안을 넓힌 뒤, 포토샵·일러스트레이터로 규격별 최종 소재 완성",
+      ],
       spec: { 역할: "광고소재 디자인", 도구: "Photoshop, Illustrator, ChatGPT, Gemini", 결과물: "1200×628 · 600×600 규격 광고소재 47종" },
       // 광고소재 추가: works/ads/web/에 이미지(+ -thumb)를 넣고 이름을 추가 (wide = 1200×628, square = 600×600)
       adGrid: [
@@ -23,7 +28,12 @@
     shorts: {
       year: "루미너스아이즈 · AI Video",
       title: "AI 광고 영상",
-      desc: "Google Flow와 Higgsfield로 장면 소스를 생성하고, 프리미어 프로에서 컷 구성·자막·사운드를 더해 광고 영상으로 완성했습니다.",
+      desc: "Google Flow와 Higgsfield로 장면을 생성하고, 프리미어 프로에서 컷 구성·자막·사운드를 더해 완성한 9:16 쇼츠 광고입니다.",
+      points: [
+        "첫 장면에 질문형·호기심 자막(“목에 좋다는 차, 다 마셔 봤다면”)을 넣어 초반 이탈을 줄이는 구성",
+        "제조 시설, 원료, 3D 캐릭터, 시니어 모델 등 편마다 다른 연출로 소구 포인트를 실험",
+        "장면마다 제품 패키지를 노출하고 하단 CTA 자막으로 마무리해 브랜드 인지와 행동 유도",
+      ],
       spec: { 역할: "영상 생성 · 편집", 도구: "Google Flow, Higgsfield, Premiere Pro", 결과물: "9:16 AI 쇼츠 광고 영상 6편" },
       // 영상 추가: 유튜브 쇼츠 링크의 shorts/ 뒤 ID를 한 줄씩 추가 (brand가 같으면 한 묶음으로 표시)
       videos: [
@@ -38,7 +48,12 @@
     landing: {
       year: "루미너스아이즈 · Landing Page",
       title: "상품 랜딩페이지",
-      desc: "상품 판매를 위한 랜딩페이지를 디자인하고 제작했습니다. 광고소재와 같은 톤으로 이어지도록 구성해, 광고를 보고 들어온 고객이 자연스럽게 구매로 이어지게 했습니다.",
+      desc: "광고를 보고 들어온 고객이 상담 신청까지 이어지도록 설계한 모바일 상품 랜딩페이지입니다. 건강식품·뷰티 7개 브랜드, 13종을 디자인하고 VS Code로 직접 제작했습니다.",
+      points: [
+        "후킹 → 공감·문제 제기 → 근거(인증·연구) → 후기 → 혜택·신청폼으로 이어지는 전환 흐름 설계",
+        "신청폼을 페이지 중간과 끝에 반복 배치해 스크롤 이탈 지점마다 전환 기회 확보",
+        "광고소재와 같은 카피·컬러를 이어 써서 광고 → 랜딩으로 넘어올 때 어색함이 없도록 구성",
+      ],
       spec: { 역할: "디자인 · 제작", 도구: "Photoshop, Illustrator, VS Code", 결과물: "건강식품·뷰티 랜딩페이지 13종 (모바일)" },
       // 랜딩 추가: works/landing/shots/에 캡처를 넣고 한 줄씩 추가 (brand가 같으면 한 묶음으로 표시)
       gallery: [
@@ -109,8 +124,10 @@
       io.unobserve(entry.target);
     });
   }, { threshold: 0.15 });
-  document.querySelectorAll(".reveal").forEach((el, i) => {
-    el.style.transitionDelay = `${(i % 3) * 80}ms`;
+  document.querySelectorAll(".reveal").forEach((el) => {
+    // 같은 줄에 나란히 있는 형제끼리만 순서대로 등장 (페이지 전체 순번 기준이면 혼자 있는 요소도 늦게 떠서 어색함)
+    const siblings = [...el.parentElement.children].filter((c) => c.classList.contains("reveal"));
+    el.style.transitionDelay = `${(siblings.indexOf(el) % 3) * 80}ms`;
     // 등장 후에는 딜레이 제거 — hover 효과가 늦게 반응하지 않도록
     el.addEventListener("transitionend", () => { el.style.transitionDelay = ""; }, { once: true });
     io.observe(el);
@@ -161,7 +178,9 @@
     btn.addEventListener("click", () => {
       const p = projects[btn.dataset.project];
       if (!p) return;
-      $("modalMedia").replaceChildren(btn.closest(".card").querySelector(".card-media").cloneNode(true));
+      // 전용 뷰어(광고 그리드·영상·랜딩)가 있으면 카드 미리보기를 반복하지 않고 내용부터 보여 줌
+      const hasViewer = p.adGrid || p.videos || p.gallery;
+      $("modalMedia").replaceChildren(...(hasViewer ? [] : [btn.closest(".card").querySelector(".card-media").cloneNode(true)]));
       $("modalYear").textContent = p.year;
       $("modalTitle").textContent = p.title;
       $("modalDesc").textContent = p.desc;
@@ -171,9 +190,12 @@
         return [dt, dd];
       }));
       renderGallery(p.gallery);
+      $("modalPoints").replaceChildren(...(p.points || []).map((t) => Object.assign(document.createElement("li"), { textContent: t })));
+      $("modalPoints").hidden = $("modalPointsTitle").hidden = !(p.points && p.points.length);
       renderAdGrid(p.adGrid);
       renderVideos(p.videos);
       modal.showModal();
+      modal.scrollTop = 0; // 다른 작업을 열 때 항상 맨 위부터
       root.style.overflow = "hidden";
     });
   });
@@ -269,6 +291,13 @@
     }));
     play(0);
   }
+
+  document.querySelectorAll("[data-open]").forEach((a) => a.addEventListener("click", (e) => {
+    const btn = document.querySelector(`.card-link[data-project="${a.dataset.open}"]`);
+    if (!btn) return;
+    e.preventDefault();
+    btn.click();
+  }));
 
   $("modalClose").addEventListener("click", () => modal.close());
   modal.addEventListener("click", (e) => { if (e.target === modal) modal.close(); }); // 배경 클릭 시 닫기
